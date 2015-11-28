@@ -6,16 +6,16 @@ function make_database(gs,deltaTL,deltaTU,deltaF)
     
     %Store Song Names into an array
     numSongs = length(matFiles);
-    databaseFiles = cell(numSongs, 1);
-    songNameTable = cell(numSongs, 1);
+    databaseFiles = cell(1, numSongs);
+    songNameTable = cell(1, numSongs);
     
     database = [];  %Database of tables
     %Generate database by calling make_table for each song
     for i = 1:numSongs
         fileName = matFiles{i};
         toRead = ['songDatabase/', fileName];
-        databaseFiles{i,1} = toRead;   %Array of song names
-        songNameTable{i,1} = fileName;
+        databaseFiles{i} = toRead;   %Array of song names
+        songNameTable{i} = toRead;
         
         %Make Database.The SongID is the index of the song in databaseFiles
         table = make_table(toRead, gs, deltaTL, deltaTU, deltaF);
@@ -35,5 +35,5 @@ function make_database(gs,deltaTL,deltaTU,deltaF)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%% Save SongNameTable %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    save('songNameTable.mat', songNameTable);
+    save('songNameTable.mat', databaseFiles);
 end

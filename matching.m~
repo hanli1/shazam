@@ -38,6 +38,7 @@ function songName = matching(testOption,clip,hashTable,songNameTable,gs,deltaTL,
    
    songIDMode = mode(toMatch(:,2));
    
-   songName = songNameTable(songIDMode);
+   
+   %
    
 end

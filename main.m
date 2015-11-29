@@ -13,4 +13,6 @@ function songName = main(testOption,clipName)
     
     songName = matching(testOption, clipName, hashTable, songNameTable, gs, deltaTL, deltaTU, deltaF)
     
+    'Song Name' songName
+    
 end

@@ -84,7 +84,6 @@ function table = make_table(songName, gs, deltaTL, deltaTU, deltaF)
     end
     fanOut = 3;
     table = [];
-    %indices = []
     
     [f,t] = find(newPeaks == 1);
     for i = 1:numel(t)
@@ -99,18 +98,14 @@ function table = make_table(songName, gs, deltaTL, deltaTU, deltaF)
         fMin = f1 - deltaF;
         
         %Find the indices in f,t such that they are within the box
-        ind = find( ((t <= tMax) & (t >= tMin) & (f <= fMax) & (f >= fMin)),fanOut );
+        ind = find( ((t <= tMax) & (t >= tMin) & (f <= fMax) & (f >= fMin)) );
         
-        for j = 1:numel(ind)
-            %indices = [indices ind(j)]
-            deltaT = t(ind(j)) - t1;
-            newRow = [f1 f(ind(j)) t1 deltaT];
-            table = [table; newRow];
-        end
+        for(
         
         
         
     end
+    
     
     
     

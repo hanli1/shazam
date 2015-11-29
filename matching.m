@@ -35,7 +35,6 @@ function songName = matching(testOption,clip,hashTable,songNameTable,gs,deltaTL,
    
    %List of rows in matchMatrix with toMode
    toMatch = matchMatrix(matchMatrix(:,1)==toMode,:);
-   
    songIDMode = mode(toMatch(:,2));
    
    songName = songNameTable(songIDMode);

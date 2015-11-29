@@ -6,9 +6,12 @@ function songName = main(testOption,clipName)
     deltaF = 9;
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    if (exist('hashtable.mat', 'file') == 0 && exist('songNameTable.mat','file') == 0)
+    
+    %If the hastables and 
+    if (exist('hashTable.mat', 'file') == 0 && exist('songNameTable.mat','file') == 0)
         make_database(gs,deltaTL,deltaTU,deltaF);
     end
+    
     load('hashTable.mat')
     load('songNameTable.mat')
     

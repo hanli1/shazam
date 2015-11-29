@@ -9,11 +9,11 @@ function songName = matching(testOption,clip,hashTable,songNameTable,gs,deltaTL,
    %%%%%%%%%%%%%%%% Search for hashes in the database %%%%%%%%%%%%%%%%%%%%%%
    matchMatrix = [];
    for i = 1:clipLength
-       clipHashRow = clipHashTable(i);
+       clipHashRow = clipHashTable(i,:);
        clipHash = clipHashRow(1);
        
        for j = 1:databaseLength
-           databaseHashRow = hashTable(j);
+           databaseHashRow = hashTable(j,:);
            databaseHash = databaseHashRow(1);
            
            %If there is a match, store it to matches

@@ -6,13 +6,13 @@ function songName = main(testOption,clipName)
     deltaF = 9;
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    
-    make_database(gs,deltaTL,deltaTU,deltaF);
+    if (exist('hashtable.mat', 'file') == 0 && exist('songNameTable.mat','file') == 0)
+        make_database(gs,deltaTL,deltaTU,deltaF);
+    end
     load('hashTable.mat')
     load('songNameTable.mat')
     
-    songName = matching(testOption, clipName, hashTable, songNameTable, gs, deltaTL, deltaTU, deltaF)
+    songName = matching(testOption, clipName, hashTable, songNameTable, gs, deltaTL, deltaTU, deltaF);
     
-    'Song Name' songName
     
 end

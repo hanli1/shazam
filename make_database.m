@@ -31,9 +31,9 @@ function make_database(gs,deltaTL,deltaTU,deltaF)
 %%%%%%%%%%%%%%% Create Hash Table %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %Apply Hash function and convert database to 3 columns
     hashTable = hash(database);
-    save('hashTable.mat',hashTable);
+    save 'hashTable.mat' hashTable;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%% Save SongNameTable %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    save('songNameTable.mat', songNameTable);
+    save 'songNameTable.mat' songNameTable;
 end

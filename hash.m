@@ -3,7 +3,7 @@ function hashTable = hash(table)
     numRows = size(table,1);
     numCols = size(table,2);
     %Hash table will have the same numRows and 3 cols
-    hashTable = zeros(numRows,3);
+    hashTable = [];
     
     %Generate hash table row by row
     
@@ -20,10 +20,10 @@ function hashTable = hash(table)
             
             hashValue = (deltaT * 2^16) + (f1*2^8) + f2;
             
-            newRow = [hashValue, t1, songID];
+            newRow = [hashValue t1 songID];
             
             %Append new row to hash table
-            hashTable(i) = newRow;
+            hashTable = [hashTable; newRow];
             
         end
     else %This is a sample clip with 4 cols
@@ -40,7 +40,7 @@ function hashTable = hash(table)
             newRow = [hashValue, t1];
             
             %Append new row to hash table
-            hashTable(i) = newRow;
+            hashTable = [hashTable; newRow];
             
         end
         

@@ -12,21 +12,34 @@ function songName = matching(testOption,clip,hashTable,songNameTable,gs,deltaTL,
        clipHashRow = clipHashTable(i,:);
        clipHash = clipHashRow(1);
        
-       for j = 1:databaseLength
-           databaseHashRow = hashTable(j,:);
-           databaseHash = databaseHashRow(1);
+       indicesOfMatches = find(hashTable == clipHash);
+       numIndicesOfMatches = numel(indicesOfMatches);
+       for j = 1: numIndicesOfMatches
+           currIndex = indicesOfMatches(j);
+           databaseHashRow = hashTable(currIndex,:);
+           t1s = databaseHashRow(2);
+           t1c = clipHashRow(2);
+           to = t1s - t1c;
+           songID = databaseHashRow(3);
            
-           %If there is a match, store it to matches
-           if clipHash == databaseHash
-               t1s = databaseHashRow(2);
-               t1c = clipHashRow(2);
-               to = t1s-t1c;
-               songID = databaseHashRow(3);
-               
-               match = [to songID];
-               matchMatrix = [matchMatrix; match];
-           end
+           match = [to songID];
+           matchMatrix = [matchMatrix; match];
        end
+%        for j = 1:databaseLength
+%            databaseHashRow = hashTable(j,:);
+%            databaseHash = databaseHashRow(1);
+%            
+%            %If there is a match, store it to matches
+%            if clipHash == databaseHash
+%                t1s = databaseHashRow(2);
+%                t1c = clipHashRow(2);
+%                to = t1s-t1c;
+%                songID = databaseHashRow(3);
+%                
+%                match = [to songID];
+%                matchMatrix = [matchMatrix; match];
+%            end
+%        end
    end
    
    %Find the mode of the to values

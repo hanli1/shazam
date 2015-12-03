@@ -26,8 +26,9 @@ function table = make_table(songName, gs, deltaTL, deltaTU, deltaF)
     localPeaks = ones(size(log_S));
     
     indices = [fix(-gs/2) : 1: fix(gs/2)];
-    for i = 1 : numel(indices)
-        for j = 1: numel(indices)
+    numIndices = numel(indices);
+    for i = 1 : numIndices
+        for j = 1: numIndices
             currXShift = indices(i);
             currYShift = indices(j);
             if ~(currXShift == 0 && currYShift == 0)
@@ -74,7 +75,7 @@ function table = make_table(songName, gs, deltaTL, deltaTU, deltaF)
         end
         prevDirection = currDirection;
         
-        if abs(threshold - prevThreshold) < 0.0001
+        if abs(threshold - prevThreshold) < 0.01
             newPeaks = tempPeaks;
             actualThreshold = threshold;
             break;
@@ -87,7 +88,8 @@ function table = make_table(songName, gs, deltaTL, deltaTU, deltaF)
     %indices = []
     
     [f,t] = find(newPeaks == 1);
-    for i = 1:numel(t)
+    numT = numel(t);
+    for i = 1:numT
         %Get the indices of t1 and f1
         t1 = t(i);
         f1 = f(i);
@@ -101,7 +103,8 @@ function table = make_table(songName, gs, deltaTL, deltaTU, deltaF)
         %Find the indices in f,t such that they are within the box
         ind = find( ((t <= tMax) & (t >= tMin) & (f <= fMax) & (f >= fMin)),fanOut );
         
-        for j = 1:numel(ind)
+        numInd = numel(ind);
+        for j = 1:numInd
             %indices = [indices ind(j)]
             deltaT = t(ind(j)) - t1;
             newRow = [f1 f(ind(j)) t1 deltaT];

@@ -1,7 +1,7 @@
-function table = make_table(song, gs, deltaTL, deltaTU, deltaF, Fs)
-    
+function table = make_table(songName, gs, deltaTL, deltaTU, deltaF)
+    load(songName, '-mat');
     %songName is y
-    leftChannel = song(:,1);
+    leftChannel = y(:,1);
     resampled = resample(leftChannel, 8000, Fs);
     
     resampledFs = 8000;
@@ -26,9 +26,8 @@ function table = make_table(song, gs, deltaTL, deltaTU, deltaF, Fs)
     localPeaks = ones(size(log_S));
     
     indices = [fix(-gs/2) : 1: fix(gs/2)];
-    numIndices = numel(indices);
-    for i = 1 : numIndices
-        for j = 1: numIndices
+    for i = 1 : numel(indices)
+        for j = 1: numel(indices)
             currXShift = indices(i);
             currYShift = indices(j);
             if ~(currXShift == 0 && currYShift == 0)
@@ -75,7 +74,7 @@ function table = make_table(song, gs, deltaTL, deltaTU, deltaF, Fs)
         end
         prevDirection = currDirection;
         
-        if abs(threshold - prevThreshold) < 0.01
+        if abs(threshold - prevThreshold) < 0.0001
             newPeaks = tempPeaks;
             actualThreshold = threshold;
             break;
@@ -88,8 +87,7 @@ function table = make_table(song, gs, deltaTL, deltaTU, deltaF, Fs)
     %indices = []
     
     [f,t] = find(newPeaks == 1);
-    numT = numel(t);
-    for i = 1:numT
+    for i = 1:numel(t)
         %Get the indices of t1 and f1
         t1 = t(i);
         f1 = f(i);
@@ -103,8 +101,7 @@ function table = make_table(song, gs, deltaTL, deltaTU, deltaF, Fs)
         %Find the indices in f,t such that they are within the box
         ind = find( ((t <= tMax) & (t >= tMin) & (f <= fMax) & (f >= fMin)),fanOut );
         
-        numInd = numel(ind);
-        for j = 1:numInd
+        for j = 1:numel(ind)
             %indices = [indices ind(j)]
             deltaT = t(ind(j)) - t1;
             newRow = [f1 f(ind(j)) t1 deltaT];

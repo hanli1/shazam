@@ -1,6 +1,6 @@
-function songName = matching(testOption,clip,hashTable,songNameTable,gs,deltaTL,deltaTU,deltaF, Fs)
+function songName = matching(testOption,clip,hashTable,songNameTable,gs,deltaTL,deltaTU,deltaF)
     %%%%%%%%%%%%%%%%% Hash Input Clip %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    clipTable = make_table(clip, gs, deltaTL, deltaTU, deltaF, Fs);
+    clipTable = make_table(clip, gs, deltaTL, deltaTU, deltaF);
     clipHashTable = hash(clipTable);
     clipLength = size(clipHashTable, 1);
     databaseLength = size(hashTable,1);

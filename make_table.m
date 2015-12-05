@@ -1,6 +1,8 @@
-function table = make_table(song, gs, deltaTL, deltaTU, deltaF, Fs)
+function table = make_table(song, gs, deltaTL, deltaTU, deltaF)
     
+    Fs = song.Fs;
     %songName is y
+    song = song.song;
     leftChannel = song(:,1);
     resampled = resample(leftChannel, 8000, Fs);
     

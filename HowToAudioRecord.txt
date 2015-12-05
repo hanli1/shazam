@@ -1,0 +1,8 @@
+Hello, class. The following functions might be handy when recording the clip for the real-time test in the part B.
+Best luck! 
+
+Useful funcitons:
+
+1. recorder = audiorecorder(Fs,bitsPerSample,channel);% Declare recorder variable with some defined properties
+2. recordblocking(recorder,recordTime);% Record audio for the amount of "recordTime"
+3. y = getaudiodata(recorder);% Getting the audio date recorded by the variable "recorder"

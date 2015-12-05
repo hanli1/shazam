@@ -6,16 +6,25 @@ function songName = main(testOption,clipName)
     deltaF = 9;
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    
-    %If the hastables and 
-    if (exist('hashTable.mat', 'file') == 0 && exist('songNameTable.mat','file') == 0)
-        make_database(gs,deltaTL,deltaTU,deltaF);
+    if testOption == 1 
+        %If the hastables and 
+        if (exist('hashTable.mat', 'file') == 0 && exist('songNameTable.mat','file') == 0)
+            make_database(gs,deltaTL,deltaTU,deltaF);
+        end
+
+        load('hashTable.mat')
+        load('songNameTable.mat')
+        songName = matching(testOption, clipName, hashTable, songNameTable, gs, deltaTL, deltaTU, deltaF);
+    else
+        load(clipName, '-mat');
+        sound(y, Fs);
+        bitsPerSample = 8;
+        channel = 1;
+        recordTime = 10;
+        recorder = audiorecorder(Fs,bitsPerSample,channel);% Declare recorder variable with some defined properties
+        recordblocking(recorder,recordTime);% Record audio for the amount of "recordTime"
+        y = getaudiodata(recorder);% Getting the audio date recorded by the variable "recorder"
+        save('customSong', 'y', 'Fs');
+        songName = matching(testOption, 'customSong', hashTable, songNameTable, gs, deltaTL, deltaTU, deltaF);
     end
-    
-    load('hashTable.mat')
-    load('songNameTable.mat')
-    
-    songName = matching(testOption, clipName, hashTable, songNameTable, gs, deltaTL, deltaTU, deltaF);
-    
-    
 end

@@ -7,7 +7,7 @@ function songName = main(testOption,clipName)
     
     if (exist('hashTable.mat', 'file') == 0 && exist('songNameTable.mat','file') == 0)
             make_database(gs,deltaTL,deltaTU,deltaF);
-        end
+    end
 
         load('hashTable.mat')
         load('songNameTable.mat')
@@ -20,7 +20,7 @@ function songName = main(testOption,clipName)
         %sound(y, Fs);
         bitsPerSample = 8;
         channel = 1;
-        recordTime = 25;
+        recordTime = 20;
         Fs = 44100;
         recorder = audiorecorder(Fs,bitsPerSample,channel);% Declare recorder variable with some defined properties
         recordblocking(recorder,recordTime);% Record audio for the amount of "recordTime"
@@ -28,8 +28,8 @@ function songName = main(testOption,clipName)
         %save('customSong', 'y', 'Fs');
         
         %Filter sound using a notch filter
-        song = notchFilter(recordedSong, Fs);
-        save('customSong','song', 'Fs');
+        y = notchFilter(recordedSong, Fs);
+        save('customSong','y', 'Fs');
         customSong = load('customSong.mat');
         
         songName = matching(testOption, customSong, hashTable, songNameTable, gs, deltaTL, deltaTU, deltaF);

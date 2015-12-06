@@ -20,14 +20,18 @@ function songName = main(testOption,clipName)
         %sound(y, Fs);
         bitsPerSample = 8;
         channel = 1;
-        recordTime = 10;
+        recordTime = 25;
         Fs = 44100;
         recorder = audiorecorder(Fs,bitsPerSample,channel);% Declare recorder variable with some defined properties
         recordblocking(recorder,recordTime);% Record audio for the amount of "recordTime"
-        song = getaudiodata(recorder);% Getting the audio date recorded by the variable "recorder"
+        recordedSong = getaudiodata(recorder);% Getting the audio date recorded by the variable "recorder"
         %save('customSong', 'y', 'Fs');
+        
+        %Filter sound using a notch filter
+        song = notchFilter(recordedSong, Fs);
         save('customSong','song', 'Fs');
         customSong = load('customSong.mat');
+        
         songName = matching(testOption, customSong, hashTable, songNameTable, gs, deltaTL, deltaTU, deltaF);
     end
 end

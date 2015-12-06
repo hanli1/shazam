@@ -34,7 +34,6 @@ time = {};
 % Read files in directory "clipRealTime/"
 files = what('clipRealTime');
 matFiles = files.mat;
-
 % Perform Shazam on 20 test clips
 for index = 1:length(matFiles)
 	% Read test clip
@@ -64,7 +63,7 @@ for index = 1:length(matFiles)
 	        credit = credit + 0.5;
 	        noDecision = [noDecision,fileName];
 	    % For incorrect
-	    else 
+        else
 	        credit = credit + 0;
 	        incorrect = [incorrect,fileName];
 	    end 

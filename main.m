@@ -14,6 +14,9 @@ function songName = main(testOption,clipName)
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     if testOption == 1 
         full = load(clipName, '-mat');
+        song = full.y;
+        song = butterFilter(song, full.Fs);
+        full.y = song;
         songName = matching(testOption, full, hashTable, songNameTable, gs, deltaTL, deltaTU, deltaF);
     else
         %load(clipName, '-mat');
@@ -28,6 +31,7 @@ function songName = main(testOption,clipName)
         %save('customSong', 'y', 'Fs');
         
         %Filter sound using a notch filter
+        %y = butterFilter(recordedSong,Fs);
         y = notchFilter(recordedSong, Fs);
         save('customSong','y', 'Fs');
         customSong = load('customSong.mat');

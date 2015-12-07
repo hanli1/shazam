@@ -86,7 +86,9 @@ function table = make_table(song, gs, deltaTL, deltaTU, deltaF)
 %         increment
     end
     fanOut = 3;
-    table = [];
+    table = zeros(2000,4);
+    tableSize = length(table);
+    counter = 1;
     %indices = []
     
     [f,t] = find(newPeaks == 1);
@@ -110,12 +112,21 @@ function table = make_table(song, gs, deltaTL, deltaTU, deltaF)
             %indices = [indices ind(j)]
             deltaT = t(ind(j)) - t1;
             newRow = [f1 f(ind(j)) t1 deltaT];
-            table = [table; newRow];
+            if counter > tableSize
+                tempMatrix = zeros(2000,4);
+                table = [table; tempMatrix];
+                tableSize = length(table);
+            end
+            table(counter,:) = newRow;
+            counter = counter + 1;
         end
         
         
         
     end
+    indToRemove = counter:tableSize;
+    table(indToRemove,:) = [];
+   
     
     
     

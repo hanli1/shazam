@@ -7,7 +7,9 @@ function songName = matching(testOption,clip,hashTable,songNameTable,gs,deltaTL,
    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
    
    %%%%%%%%%%%%%%%% Search for hashes in the database %%%%%%%%%%%%%%%%%%%%%%
-   matchMatrix = [];
+   matchMatrix = zeros(100000, 2);
+   matchMatrixSize = length(matchMatrix);
+   counter = 1;
    for i = 1:clipLength
        clipHashRow = clipHashTable(i,:);
        clipHash = clipHashRow(1);
@@ -23,33 +25,43 @@ function songName = matching(testOption,clip,hashTable,songNameTable,gs,deltaTL,
            songID = databaseHashRow(3);
            
            match = [to songID];
-           matchMatrix = [matchMatrix; match];
+%            matchMatrix = [matchMatrix; match];
+           if counter > matchMatrixSize
+               tempMatrix = zeros(10000,2);
+               matchMatrix = [matchMatrix; tempMatrix];
+               matchMatrixSize = length(matchMatrix);
+           end
+           matchMatrix(counter,:) = match;
+           counter = counter + 1;
+           
        end
-%        for j = 1:databaseLength
-%            databaseHashRow = hashTable(j,:);
-%            databaseHash = databaseHashRow(1);
-%            
-%            %If there is a match, store it to matches
-%            if clipHash == databaseHash
-%                t1s = databaseHashRow(2);
-%                t1c = clipHashRow(2);
-%                to = t1s-t1c;
-%                songID = databaseHashRow(3);
-%                
-%                match = [to songID];
-%                matchMatrix = [matchMatrix; match];
-%            end
-%        end
    end
+   %length(matchMatrix)
+   indToRemove = counter:matchMatrixSize;
+   matchMatrix(indToRemove,:) = [];
    
    %Find the mode of the to values
    toList = matchMatrix(:,1);
    toMode = mode(toList);
    
    %List of rows in matchMatrix with toMode
+   %toMatch = matchMatrix(find(toList == toMode),:);
    toMatch = matchMatrix(matchMatrix(:,1)==toMode,:);
-   songIDMode = mode(toMatch(:,2));
+   songList = toMatch(:,2);
+   songListCopy = songList; 
+   songMode1 = mode(songList);
+   mode1Num = sum(songList == songMode1);
+   songListCopy(songList==songMode1) = [] ;
+   songMode2 = mode(songListCopy);
+   mode2Num = sum(songList == songMode2);
    
-   songName = songNameTable(songIDMode);
+   percent = mode1Num / (mode1Num + mode2Num);
+ 
+   if isnan(mode2Num) || percent >= .6 
+       songName = songNameTable(songMode1);
+   else
+       songName = 'no-decision';
+       'NO DECISION'
+   end
    
 end

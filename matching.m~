@@ -75,15 +75,9 @@ function songName = matching(~,clip,hashTable,songNameTable,gs,deltaTL,deltaTU,d
    songMode2 = mode(songListCopy)
    mode2Num = sum(songList == songMode2)
    
-   if isnan(mode2Num)
-       percent = 1
-   else
-       percent = mode1Num / (mode1Num + mode2Num)
-   end
-   
+   percent = mode1Num / (mode1Num + mode2Num)
  
-   pancakes = 0.5;
-   if percent > pancakes
+   if isnan(mode2Num) || percent >= .6 
        songName = songNameTable(songMode1);
    else
        songName = 'no-decision';

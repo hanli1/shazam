@@ -3,12 +3,12 @@ function hashTable = hash(table)
     numRows = size(table,1);
     numCols = size(table,2);
     %Hash table will have the same numRows and 3 cols
-    hashTable = [];
     
     %Generate hash table row by row
     
     %If there are 5 elements per row,the we have a songID
     if numCols == 5
+        hashTable = zeros(numRows, 3);
         for i = 1:numRows
             oldRow = table(i,:);
             
@@ -23,10 +23,10 @@ function hashTable = hash(table)
             newRow = [hashValue t1 songID];
             
             %Append new row to hash table
-            hashTable = [hashTable; newRow];
-            
+            hashTable(i,:) = newRow;
         end
     else %This is a sample clip with 4 cols
+        hashTable = zeros(numRows, 2);
         for i = 1:numRows
             oldRow = table(i,:);
             
@@ -40,10 +40,9 @@ function hashTable = hash(table)
             newRow = [hashValue, t1];
             
             %Append new row to hash table
-            hashTable = [hashTable; newRow];
+            hashTable(i,:) = newRow;
             
         end
-        
         
     end
 end

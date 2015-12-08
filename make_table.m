@@ -10,7 +10,7 @@ function table = make_table(song, gs, deltaTL, deltaTU, deltaF)
     window = 64e-3 * resampledFs;
     noverlap = 32e-3 * resampledFs;
     nfft = 64e-3 * resampledFs;
-    [S, F, T] = spectrogram(resampled, window, noverlap, nfft, resampledFs);
+    [S, ~, ~] = spectrogram(resampled, window, noverlap, nfft, resampledFs);
     log_S = log10(abs(S) + 1);
     % Step 2 Check
 %     figure
@@ -41,7 +41,7 @@ function table = make_table(song, gs, deltaTL, deltaTU, deltaF)
         end
     end
     
-    actualNumPeaks = nnz(localPeaks);
+%     actualNumPeaks = nnz(localPeaks);
     desiredNumPeaks = 30 * numel(leftChannel)/Fs;
     
     threshold = 0.3;
@@ -123,10 +123,10 @@ function table = make_table(song, gs, deltaTL, deltaTU, deltaF)
         
         
         
+        
     end
     indToRemove = counter:tableSize;
     table(indToRemove,:) = [];
-   
     
     
     
